@@ -21,6 +21,9 @@ jobs:
           - platform: "windows-latest"
             args: ""
             name: Windows x64
+          - platform: "ubuntu-latest"
+            args: ""
+            name: Linux x64
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.platform }}
     steps:
