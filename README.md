@@ -12,9 +12,9 @@ ChatWise is a powerful desktop AI chat application that puts you in control of y
 - No data tracking or collection
 
 ### 🧠 **Multiple AI Providers**
-- **OpenAI** (GPT-4o, GPT-4o mini, GPT-4 Turbo)
-- **Anthropic** (Claude 3.5 Sonnet, Claude 3 Haiku)
-- **Google AI** (Gemini Pro, Gemini Flash)
+- **OpenAI** (GPT-4.1, GPT-4o, GPT-4o mini, o3, o4-mini)
+- **Anthropic** (Claude 4 Opus, Claude 4 Sonnet, Claude 3.7 Sonnet, Claude 3.5 Sonnet, Claude 3.5 Haiku)
+- **Google AI** (Gemini 2.5 Pro, Gemini 2.5 Flash, Gemini 2.0 Flash)
 - **Groq** (Llama, Mixtral models)
 - **Ollama** (Local models)
 - And many more!
@@ -29,16 +29,16 @@ ChatWise is a powerful desktop AI chat application that puts you in control of y
 
 #### 📄 **Document Processing**
 - **Text files**: Supported by all models
-- **PDF files**: Native support in Claude 3.5 Sonnet and Gemini
+- **PDF files**: Native support in Claude 4/3.5 family and Gemini 2.5/2.0 models
 - **Smart text extraction** for other models
 
 #### 🎧 **Audio Capabilities**
-- **Native audio processing** in Gemini and GPT-4o Audio
+- **Native audio processing** in Gemini 2.5/2.0 models and GPT-4o/4.1 family
 - **Text-to-speech** powered by OpenAI and ElevenLabs
 - **Voice conversations** with supported models
 
 #### 🖼️ **Image Understanding**
-- **Multi-model image support**: GPT-4o family, Gemini, Claude, Groq Llama
+- **Multi-model image support**: GPT-4.1/4o family, Gemini 2.5/2.0 models, Claude 4/3.5 family, Groq Llama
 - **Visual analysis** and description
 - **Image-based conversations**
 
