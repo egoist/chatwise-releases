@@ -3,6 +3,7 @@ name: "Sync Release"
 on:
   release:
     types: [published]
+  workflow_dispatch: # Allow manual triggering
 
 jobs:
   sync-release:
