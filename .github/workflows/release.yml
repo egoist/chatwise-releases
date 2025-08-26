@@ -62,6 +62,7 @@ jobs:
 
       - name: Rust cache
         uses: swatinem/rust-cache@v2
+        if: matrix.platform != 'ubuntu-22.04'
         with:
           workspaces: ". -> target"
 
