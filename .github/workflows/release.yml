@@ -52,7 +52,7 @@ jobs:
           cache: "pnpm" # Set this to npm, yarn or pnpm.
 
       - name: setup bun (for running scripts)
-        run: pnpm i -g bun
+        uses: oven-sh/setup-bun@v2
 
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
