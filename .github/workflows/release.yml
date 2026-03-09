@@ -1,0 +1,44 @@
+name: Build/release Electron app
+
+on:
+  repository_dispatch:
+    types: [release]
+    
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v4
+        with:
+          repository: egoist/chatwise
+          token: ${{ secrets.GH_TOKEN_FOR_CHECKOUT }}
+          ref: ${{ github.event.client_payload.sha }}
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "pnpm" # Set this to npm, yarn or pnpm.
+          
+      - name: setup bun (for running scripts)
+        uses: oven-sh/setup-bun@v2      
+        
+      - name: Install posthog-cli
+        run: |
+          bun ./ensure-posthog.ts
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: test
+        run: pnpm --filter desktop-new test
+
+      - name: build
+        run: pnpm --filter desktop-new release
+
