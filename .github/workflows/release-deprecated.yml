@@ -2,7 +2,7 @@ name: "release for tauri app"
 
 on:
   repository_dispatch:
-    types: [on-demand-release]
+    types: [release-tauri]
 
 jobs:
   publish-tauri:
