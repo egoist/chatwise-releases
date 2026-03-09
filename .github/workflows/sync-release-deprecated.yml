@@ -1,4 +1,4 @@
-name: "Sync Release"
+name: "Sync Release for Tauri"
 
 on:
   release:
@@ -7,9 +7,11 @@ on:
 
 jobs:
   sync-release:
+    if: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.event.release.tag_name, 'v0') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
+
     steps:
       - name: Check out project
         uses: actions/checkout@v4
