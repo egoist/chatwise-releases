@@ -23,11 +23,9 @@ jobs:
           token: ${{ secrets.GH_TOKEN_FOR_CHECKOUT }}
           ref: ${{ github.event.client_payload.sha }}
 
-      - name: setup node
-        uses: actions/setup-node@v6
+      - uses: pnpm/action-setup@v4
         with:
-          node-version: lts/*
-          cache: "pnpm" # Set this to npm, yarn or pnpm.
+          cache: true
           
       - name: setup bun (for running scripts)
         uses: oven-sh/setup-bun@v2      
