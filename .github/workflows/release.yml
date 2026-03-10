@@ -24,7 +24,7 @@ jobs:
           ref: ${{ github.event.client_payload.sha }}
 
       - name: setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: lts/*
           cache: "pnpm" # Set this to npm, yarn or pnpm.
