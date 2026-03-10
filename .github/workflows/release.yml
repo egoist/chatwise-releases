@@ -37,6 +37,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
+      - name: Install Playwright Browsers
+        run: pnpx playwright install --with-deps
+
       - name: test
         run: pnpm --filter desktop-new test
 
