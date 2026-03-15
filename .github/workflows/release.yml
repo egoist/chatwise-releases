@@ -44,14 +44,29 @@ jobs:
       - name: test
         run: pnpm --filter desktop-new test
 
-      - name: build and release
+      - name: build for mac
         run: pnpm --filter desktop-new release
+        if: matrix.os == 'macos-latest'
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           CSC_KEY_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
           CSC_LINK: ${{ secrets.APPLE_CERTIFICATE }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          POSTHOG_CLI_ENV_ID: ${{ secrets.POSTHOG_CLI_ENV_ID }}
+          POSTHOG_CLI_TOKEN: ${{ secrets.POSTHOG_CLI_TOKEN }}
+          NODE_OPTIONS: "--max_old_space_size=4096"
+          MY_NAME: ${{ secrets.MY_NAME }}
+          REDACT_2: ${{ secrets.REDACT_2 }}
+
+      - name: build for win & linux
+        run: pnpm --filter desktop-new release
+        if: matrix.os != 'macos-latest'
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
