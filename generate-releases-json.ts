@@ -44,7 +44,7 @@ const config: Config = {
   r2AccountId: process.env.R2_ACCOUNT_ID!,
   awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID!,
   awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-  version: process.env.VERSION!,
+  version: process.env.VERSION!.trim(),
   bucketOrigin: process.env.BUCKET_ORIGIN || "https://releases.chatwise.app",
 };
 
