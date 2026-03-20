@@ -103,12 +103,13 @@ jobs:
       - name: Read version from package.json
         id: read-version
         run: |
-          echo "content=$(cat _chatwise-src/desktop-new/package.json)" >> $GITHUB_OUTPUT
+          VERSION=$(cat _chatwise-src/desktop-new/package.json | bun -e 'const fs = require("fs"); const data = JSON.parse(fs.readFileSync(0, "utf-8")); console.log(data.version)')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Generate releases.json
         env:
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          VERSION: ${{ fromJson(steps.read-version.outputs.content).version }}
+          VERSION: ${{ steps.read-version.outputs.version }}
         run: bun ./generate-releases-json.ts
