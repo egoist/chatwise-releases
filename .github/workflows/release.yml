@@ -3,12 +3,12 @@ name: Build/release Electron app
 on:
   repository_dispatch:
     types: [release]
-    
+
 jobs:
   release:
     permissions:
       contents: write
-      
+
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -27,10 +27,10 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           cache: true
-          
+
       - name: setup bun (for running scripts)
-        uses: oven-sh/setup-bun@v2      
-        
+        uses: oven-sh/setup-bun@v2
+
       - name: Install posthog-cli
         run: |
           bun ./ensure-posthog.ts
@@ -110,6 +110,5 @@ jobs:
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          BUCKET_ORIGIN: ${{ secrets.BUCKET_ORIGIN }}
           VERSION: ${{ fromJson(steps.read-version.outputs.content).version }}
         run: bun ./generate-releases-json.ts
