@@ -77,3 +77,39 @@ jobs:
           MY_NAME: ${{ secrets.MY_NAME }}
           REDACT_2: ${{ secrets.REDACT_2 }}
 
+  generate-releases-json:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out releases repo
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Check out source repo to get version
+        uses: actions/checkout@v4
+        with:
+          repository: egoist/chatwise
+          token: ${{ secrets.GH_TOKEN_FOR_CHECKOUT }}
+          ref: ${{ github.event.client_payload.sha }}
+          path: _chatwise-src
+          sparse-checkout: desktop-new/package.json
+          sparse-checkout-cone-mode: false
+
+      - name: Read version from package.json
+        id: read-version
+        run: |
+          echo "content=$(cat _chatwise-src/desktop-new/package.json)" >> $GITHUB_OUTPUT
+
+      - name: Generate releases.json
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          BUCKET_ORIGIN: ${{ secrets.BUCKET_ORIGIN }}
+          VERSION: ${{ fromJson(steps.read-version.outputs.content).version }}
+        run: bun ./generate-releases-json.ts
