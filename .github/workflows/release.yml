@@ -62,6 +62,7 @@ jobs:
           NODE_OPTIONS: "--max_old_space_size=4096"
           MY_NAME: ${{ secrets.MY_NAME }}
           REDACT_2: ${{ secrets.REDACT_2 }}
+          GIT_COMMIT_SHA: ${{ github.sha }}
 
       - name: build for win & linux
         run: pnpm --filter desktop-new release
@@ -76,6 +77,7 @@ jobs:
           NODE_OPTIONS: "--max_old_space_size=4096"
           MY_NAME: ${{ secrets.MY_NAME }}
           REDACT_2: ${{ secrets.REDACT_2 }}
+          GIT_COMMIT_SHA: ${{ github.sha }}
 
   generate-releases-json:
     needs: release
