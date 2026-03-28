@@ -42,10 +42,10 @@ jobs:
         run: pnpx playwright install --with-deps
 
       - name: test
-        run: pnpm --filter desktop-new test
+        run: pnpm --filter desktop test
 
       - name: build for mac
-        run: pnpm --filter desktop-new release
+        run: pnpm --filter desktop release
         if: matrix.os == 'macos-latest'
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
@@ -65,7 +65,7 @@ jobs:
           GIT_COMMIT_SHA: ${{ github.sha }}
 
       - name: build for win & linux
-        run: pnpm --filter desktop-new release
+        run: pnpm --filter desktop release
         if: matrix.os != 'macos-latest'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -99,13 +99,13 @@ jobs:
           token: ${{ secrets.GH_TOKEN_FOR_CHECKOUT }}
           ref: ${{ github.event.client_payload.sha }}
           path: _chatwise-src
-          sparse-checkout: desktop-new/package.json
+          sparse-checkout: desktop/package.json
           sparse-checkout-cone-mode: false
 
       - name: Read version from package.json
         id: read-version
         run: |
-          VERSION=$(cat _chatwise-src/desktop-new/package.json | bun -e 'const fs = require("fs"); const data = JSON.parse(fs.readFileSync(0, "utf-8")); console.log(data.version)')
+          VERSION=$(cat _chatwise-src/desktop/package.json | bun -e 'const fs = require("fs"); const data = JSON.parse(fs.readFileSync(0, "utf-8")); console.log(data.version)')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Generate releases.json
