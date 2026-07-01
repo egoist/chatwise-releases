@@ -24,7 +24,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN_FOR_CHECKOUT }}
           ref: ${{ github.event.client_payload.sha }}
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           cache: true
 
